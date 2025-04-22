@@ -13,6 +13,8 @@ Board::Board() {
   zones.emplace_back("Naviglio", 4);
   zones.emplace_back("Oltretorrente", 5);
   zones.emplace_back("Oltretorrente", 6);
+
+  carte.Mazzo_Default();
 }
 
 Zone &Board::getZone(const int &nZone) {
@@ -85,6 +87,70 @@ bool Board::rimuoviCivileDaZona(int numeroZona) {
   getZone(numeroZona).oggetti.Remove_Civili();
   risorseGlobali.civiliDisponibili++;
   return true;
+}
+
+std::vector<int> Board::lanciaDadi(int numDadi) {
+  std::vector<int> risultati;
+
+  // Lancia i dadi e mostra i risultati
+  std::cout << "Hai lanciato " << numDadi << " dado(i): ";
+  for (int i = 0; i < numDadi; i++) {
+      risultati.push_back(rand() % 6 + 1); // Genera un numero casuale tra 1 e 6
+      std::cout << risultati.back() << " ";
+  }
+
+  std::cout << std::endl;
+
+  return risultati;
+}
+
+void Board::mostraCarte(){
+  carte.mostraCarte();
+}
+
+void Board::initalizeGame(){
+  // Inserisco nelle zone gli oggetti ed i fasci
+  std::vector<int> risultati;
+
+  // Aggiungo i fascisti
+  risultati = lanciaDadi(2);
+  for (int i = 0; i < risultati.size(); i++) {
+    aggiungiFascistaAZona(risultati[i]);
+  }
+
+  // Aggiungo le munizioni
+  risultati = lanciaDadi(2);
+  for (int i = 0; i < risultati.size(); i++) {
+    aggiungiMunizioneAZona(risultati[i]);
+  }
+
+  // Aggiungo le pozioni
+  risultati = lanciaDadi(2);
+  for (int i = 0; i < risultati.size(); i++) {
+   aggiungiPozioneAZona(risultati[i]);
+  }
+
+  // Aggiungo i civili
+  risultati = lanciaDadi(2);
+  for (int i = 0; i < risultati.size(); i++) {
+    aggiungiCivileAZona(risultati[i]);
+  }
+
+  // Inserisci numero player
+  int nPlayer = 0;
+  std::cout << "inserisci il numero di giocatori: ";
+  std::cin >> nPlayer;
+
+  for(int i = 0; i < nPlayer; i++)
+  {
+    player.push_back(Giocatore("aaa", lanciaDadi(1).back()));
+  }
+
+  for(int i = 0; i < player.size() i++)
+  {
+    player.mostraStato();
+  }
+
 }
 
 void Board::display() const {
