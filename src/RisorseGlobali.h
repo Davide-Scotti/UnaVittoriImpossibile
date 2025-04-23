@@ -8,6 +8,7 @@ struct RisorseGlobali {
     int munizioniDisponibili = 6;
     int pozioniDisponibili = 6;
     int civiliDisponibili = 6;
+    int avanzamentoFasci = 0; 
 
     // Metodi per decrementare le risorse
     bool usaFascista() {

@@ -195,6 +195,14 @@ void Board::initalizeMani(){
   }
 }
 
+bool Board::stillAlive(){
+  int diffBarricate = 8 - risorseGlobali.barricateDisponibili;
+
+  if(risorseGlobali.avanzamentoFasci >= 7 + diffBarricate)
+    std::cout << "Hai perso! Avanzamento fascista: " << risorseGlobali.avanzamentoFasci << std::endl;
+  return false;
+}
+
 void Board::display() const {
   // Intestazione tabella
   std::cout << "┌────┬────────────────┬────────────┬──────────┬────────────┬───"

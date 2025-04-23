@@ -14,6 +14,10 @@ int main() {
   // Aggiungo oggetti e fascisti
   board.initalizeGame();
 
+  do{
+    
+  }while(board.stillAlive() || board.getGiorno() < 5);
+
   // Piccola pausa prima di chiudere (solo per console)
   system("pause");
   return 0;

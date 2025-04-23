@@ -42,12 +42,15 @@ public:
   std::vector<int> lanciaDadi(int numDadi);
 
   void mostraCarte();
+  int getGiorno() { return nGiornata; }
 
   // Inizializzazione board
   void initalizeGame();
   void initalizeZone();
   void initalizeGiocatori();
   void initalizeMani();
+
+  bool stillAlive();
 
   // Stampa su console tutte le zone con i loro livelli
   void display() const;
