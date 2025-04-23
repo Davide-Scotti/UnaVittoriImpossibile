@@ -14,7 +14,9 @@ private:
   std::vector<Zone> zones;
   std::vector<Giocatore> player;
   RisorseGlobali risorseGlobali;
-  Mazzo carte;
+  Mazzo mazzoPesca;
+  int nCarte = 0; // numero di carte a giocatore
+  int nGiornata = 0; // numero di giornata
 
 public:
   // Costruttore: carica la configurazione di default
@@ -43,6 +45,9 @@ public:
 
   // Inizializzazione board
   void initalizeGame();
+  void initalizeZone();
+  void initalizeGiocatori();
+  void initalizeMani();
 
   // Stampa su console tutte le zone con i loro livelli
   void display() const;

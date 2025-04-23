@@ -14,9 +14,6 @@ int main() {
   // Aggiungo oggetti e fascisti
   board.initalizeGame();
 
-  // Stampa lo stato corrente
-  board.display();
-
   // Piccola pausa prima di chiudere (solo per console)
   system("pause");
   return 0;

@@ -15,11 +15,10 @@ private:
 
 public:
     // Costruttore
-    Giocatore(const std::string& nome, int zona) 
-    : nome(nome), zona(zona) { }
+    Giocatore(const std::string& nome, int zona) : nome(nome), zona(zona) { }
 
     // Metodi per gestire il mazzo del giocatore
-    void pescaCarta();
+    void pescaCarta(Mazzo& mazzo);
     void giocaCarta(const std::string& carta);
     void mostraCarteGiocate();
     void svuotaMano(); // Svuota la mano del giocatore

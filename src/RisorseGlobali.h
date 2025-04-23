@@ -3,7 +3,7 @@
 #define RISORSE_GLOBALI_H
 
 struct RisorseGlobali {
-    int fascistiDisponibili = 15;
+    int fascistiDisponibili = 12;
     int barricateDisponibili = 8;
     int munizioniDisponibili = 6;
     int pozioniDisponibili = 6;

@@ -7,14 +7,14 @@
 
 Board::Board() {
   // Configurazione iniziale: nomi e livello max
-  zones.emplace_back("Naviglio", 1);
-  zones.emplace_back("Naviglio", 2);
-  zones.emplace_back("Naviglio", 3);
-  zones.emplace_back("Naviglio", 4);
-  zones.emplace_back("Oltretorrente", 5);
-  zones.emplace_back("Oltretorrente", 6);
+  zones.emplace_back("Oltretorrente", 1);
+  zones.emplace_back("Oltretorrente", 2);
+  zones.emplace_back("Oltretorrente", 3);
+  zones.emplace_back("Oltretorrente", 4);
+  zones.emplace_back("Naviglio", 5);
+  zones.emplace_back("Naviglio", 6);
 
-  carte.Mazzo_Default();
+  mazzoPesca.Mazzo_Default();
 }
 
 Zone &Board::getZone(const int &nZone) {
@@ -105,55 +105,94 @@ std::vector<int> Board::lanciaDadi(int numDadi) {
 }
 
 void Board::mostraCarte(){
-  carte.mostraCarte();
+  mazzoPesca.mostraCarte();
 }
 
 void Board::initalizeGame(){
-  // Inserisco nelle zone gli oggetti ed i fasci
-  std::vector<int> risultati;
 
-  // Aggiungo i fascisti
-  risultati = lanciaDadi(2);
-  for (int i = 0; i < risultati.size(); i++) {
-    aggiungiFascistaAZona(risultati[i]);
-  }
+  initalizeZone();
 
-  // Aggiungo le munizioni
-  risultati = lanciaDadi(2);
-  for (int i = 0; i < risultati.size(); i++) {
-    aggiungiMunizioneAZona(risultati[i]);
-  }
+  initalizeGiocatori();
 
-  // Aggiungo le pozioni
-  risultati = lanciaDadi(2);
-  for (int i = 0; i < risultati.size(); i++) {
-   aggiungiPozioneAZona(risultati[i]);
-  }
+  initalizeMani();
 
-  // Aggiungo i civili
-  risultati = lanciaDadi(2);
-  for (int i = 0; i < risultati.size(); i++) {
-    aggiungiCivileAZona(risultati[i]);
-  }
-
-  // Inserisci numero player
-  int nPlayer = 0;
-  std::cout << "inserisci il numero di giocatori: ";
-  std::cin >> nPlayer;
-
-  for(int i = 0; i < nPlayer; i++)
-  {
-    std::string name;
-    std::cout << "inserisci il nome del giocatore: ";
-    std::cin >> name;
-    player.push_back(Giocatore(name, lanciaDadi(1).back()));
-  }
-
+  // Stampa lo stato iniziale del gioco
   for(int i = 0; i < player.size(); i++)
   {
       player[i].mostraStato();
   }
 
+  display();
+}
+
+void Board::initalizeZone() {
+   // Inserisco nelle zone gli oggetti ed i fasci
+   std::vector<int> risultati;
+
+   // Aggiungo i fascisti
+   risultati = lanciaDadi(2);
+   for (int i = 0; i < risultati.size(); i++) {
+     aggiungiFascistaAZona(risultati[i]);
+   }
+ 
+   // Aggiungo le munizioni
+   risultati = lanciaDadi(2);
+   for (int i = 0; i < risultati.size(); i++) {
+     aggiungiMunizioneAZona(risultati[i]);
+   }
+ 
+   // Aggiungo le pozioni
+   risultati = lanciaDadi(2);
+   for (int i = 0; i < risultati.size(); i++) {
+    aggiungiPozioneAZona(risultati[i]);
+   }
+ 
+   // Aggiungo i civili
+   risultati = lanciaDadi(2);
+   for (int i = 0; i < risultati.size(); i++) {
+     aggiungiCivileAZona(risultati[i]);
+   }
+}
+
+void Board::initalizeGiocatori(){
+   // Inserisci numero player
+   int nPlayer = 0;
+   std::cout << "inserisci il numero di giocatori: ";
+   std::cin >> nPlayer;
+ 
+   for(int i = 0; i < nPlayer; i++)
+   {
+     std::string name;
+     std::cout << "inserisci il nome del giocatore: ";
+     std::cin >> name;
+     player.push_back(Giocatore(name, lanciaDadi(1).back()));
+   }
+}
+
+void Board::initalizeMani(){
+  if(player.size() == 1){
+    nCarte = 6;
+  }else if(player.size() == 2){
+    nCarte = 5;
+  }else if(player.size() == 3){
+    nCarte = 5;
+  }else if(player.size() == 4){
+    nCarte = 4;
+  }else if(player.size() == 5){
+    nCarte = 3;
+  }else{
+    initalizeGame();
+  }
+
+  for(auto &p : player)
+  {
+    p.svuotaMano();
+
+    for(int i = 0; i < nCarte; i++)
+    {
+      p.pescaCarta(mazzoPesca);
+    }
+  }
 }
 
 void Board::display() const {

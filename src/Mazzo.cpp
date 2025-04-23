@@ -31,20 +31,36 @@ void Mazzo::mostraCarte() {
     std::cout << std::endl;
 }
 
-void Mazzo::aggiungiFascista() {
-    fascisti++;
+void Mazzo::aggiungiFascisti() {
+    for(int i = 0; i < fascisti; i++)
+        carte.push_back("Fascista");
 }
 
 int Mazzo::getFascisti() const {
     return fascisti;
 }
 
-// Implementazione della funzione shuffleMazzo
+std::string Mazzo::pescaCarta() {
+    if (carte.empty()) {
+
+        // Incremento il numero della giornata
+        fascisti++;
+        Mazzo_Default();
+        aggiungiFascisti();
+    }
+
+    std::string carta = carte.back();
+    carte.pop_back(); 
+    return carta;
+}
+
+void Mazzo::aggiungiCarta(std::string card) {
+    carte.push_back(card);
+}
+
 void Mazzo::shuffle() {
-    // Usando un generatore di numeri casuali
     std::random_device rd;
     std::mt19937 g(rd());
 
-    // Mescola il mazzo con std::shuffle
     std::shuffle(carte.begin(), carte.end(), g);
 }
