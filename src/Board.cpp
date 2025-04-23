@@ -143,12 +143,15 @@ void Board::initalizeGame(){
 
   for(int i = 0; i < nPlayer; i++)
   {
-    player.push_back(Giocatore("aaa", lanciaDadi(1).back()));
+    std::string name;
+    std::cout << "inserisci il nome del giocatore: ";
+    std::cin >> name;
+    player.push_back(Giocatore(name, lanciaDadi(1).back()));
   }
 
-  for(int i = 0; i < player.size() i++)
+  for(int i = 0; i < player.size(); i++)
   {
-    player.mostraStato();
+      player[i].mostraStato();
   }
 
 }
