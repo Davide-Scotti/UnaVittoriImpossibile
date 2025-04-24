@@ -53,10 +53,13 @@ public:
 
   void mostraCarte();
   int getGiorno() { return nGiornata; }
+  int getNumPlayers() const { return static_cast<int>(player.size()); }
+  Giocatore& getPlayer(int idx) { return player[idx]; }
 
   // Inizializzazione board
   void initalizeGame();
   void initalizeZone();
+  void initalizePointBoard();
   void initalizeGiocatori();
   void initalizeMani();
 

@@ -15,18 +15,6 @@ Board::Board() {
   zones.emplace_back("Naviglio", 6);
 
   mazzoPesca.Mazzo_Default();
-
-  int point = (isHard) ? 5 : 8;
-
-  for(int i = 0; i < point; i++){
-    pointBoard.push_back(PointBoard(false, false));
-  }
-
-  for(int i = 0; i < 8; i++){
-    pointBoard.push_back(PointBoard(false, true));
-  }
-
-  pointBoard[0].IsCover = true;
 }
 
 Zone &Board::getZone(const int &nZone) {
@@ -131,6 +119,8 @@ void Board::initalizeGame(){
 
   initalizeZone();
 
+  initalizePointBoard();
+
   initalizeGiocatori();
 
   initalizeMani();
@@ -171,6 +161,23 @@ void Board::initalizeZone() {
    for (int i = 0; i < risultati.size(); i++) {
      aggiungiCivileAZona(risultati[i]);
    }
+}
+
+void Board::initalizePointBoard() {
+  std::cout << "Seleziona la difficoltà (0 per facile, 1 per difficile): ";
+  std::cin >> isHard;
+
+  int point = (isHard) ? 5 : 8;
+
+  for(int i = 0; i < point; i++){
+    pointBoard.push_back(PointBoard(false, false));
+  }
+
+  for(int i = 0; i < 8; i++){
+    pointBoard.push_back(PointBoard(false, true));
+  }
+
+  pointBoard[0].IsCover = true;
 }
 
 void Board::initalizeGiocatori(){
@@ -250,6 +257,9 @@ void Board::drawPointBoard() const {
 }
 
 void Board::display() const {
+  std::cout << "\n\n";
+  drawPointBoard();
+  std::cout << "\n";
   // Intestazione tabella
   std::cout << "┌────┬────────────────┬────────────┬──────────┬────────────┬───"
                "───────┬──────────┐\n";
@@ -280,6 +290,4 @@ void Board::display() const {
   // Chiusura tabella
   std::cout << "└────┴────────────────┴────────────┴──────────┴────────────┴───"
                "───────┴──────────┘\n";
-
-  drawPointBoard();
 }
