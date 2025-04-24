@@ -4,7 +4,6 @@
 
 struct RisorseGlobali {
     int fascistiDisponibili = 12;
-    int barricateDisponibili = 8;
     int munizioniDisponibili = 6;
     int pozioniDisponibili = 6;
     int civiliDisponibili = 6;
@@ -14,14 +13,6 @@ struct RisorseGlobali {
     bool usaFascista() {
         if (fascistiDisponibili > 0) {
             --fascistiDisponibili;
-            return true;
-        }
-        return false;
-    }
-
-    bool usaBarricata() {
-        if (barricateDisponibili > 0) {
-            --barricateDisponibili;
             return true;
         }
         return false;

@@ -15,6 +15,18 @@ Board::Board() {
   zones.emplace_back("Naviglio", 6);
 
   mazzoPesca.Mazzo_Default();
+
+  int point = (isHard) ? 5 : 8;
+
+  for(int i = 0; i < point; i++){
+    pointBoard.push_back(PointBoard(false, false));
+  }
+
+  for(int i = 0; i < 8; i++){
+    pointBoard.push_back(PointBoard(false, true));
+  }
+
+  pointBoard[0].IsCover = true;
 }
 
 Zone &Board::getZone(const int &nZone) {
@@ -34,11 +46,18 @@ bool Board::aggiungiFascistaAZona(int numeroZona) {
 }
 
 bool Board::aggiungiBarricataAZona(int numeroZona) {
-  if (risorseGlobali.usaBarricata()) {
-    getZone(numeroZona).oggetti.Add_Barricata();
-    return true;
+
+  bool found = false;
+
+  for(auto& score : pointBoard){
+    if(score.IsBarricate == true){
+      found = true;
+      score.IsBarricate = false;
+      break;
+    }
   }
-  return false;
+
+  return found;
 }
 
 bool Board::aggiungiMunizioneAZona(int numeroZona) {
@@ -196,11 +215,38 @@ void Board::initalizeMani(){
 }
 
 bool Board::stillAlive(){
-  int diffBarricate = 8 - risorseGlobali.barricateDisponibili;
+  for (const auto& point : pointBoard) {
+    if (point.IsCover && point.IsBarricate) {
+        return false;
+    }
+  }
 
-  if(risorseGlobali.avanzamentoFasci >= 7 + diffBarricate)
-    std::cout << "Hai perso! Avanzamento fascista: " << risorseGlobali.avanzamentoFasci << std::endl;
-  return false;
+  if(pointBoard.back().IsCover == true){
+    return false;
+  }
+
+  return true;
+}
+
+void Board::drawPointBoard() const {
+  int lastCoverIndex = -1;
+  for (int i = 0; i < pointBoard.size(); ++i) {
+      if (pointBoard[i].IsCover) {
+          lastCoverIndex = i;
+      }
+  }
+
+  // Stampa il board
+  for (int i = 0; i < pointBoard.size(); ++i) {
+      if (i == lastCoverIndex) {
+          std::cout << "[👾]";
+      } else if (pointBoard[i].IsBarricate) {
+          std::cout << "[#]";
+      } else {
+          std::cout << "[ ]";
+      }
+  }
+  std::cout << std::endl;
 }
 
 void Board::display() const {
@@ -234,4 +280,6 @@ void Board::display() const {
   // Chiusura tabella
   std::cout << "└────┴────────────────┴────────────┴──────────┴────────────┴───"
                "───────┴──────────┘\n";
+
+  drawPointBoard();
 }

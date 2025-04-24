@@ -9,14 +9,24 @@
 #include <string>
 #include <vector>
 
+struct PointBoard {
+  bool IsCover = false;
+  bool IsBarricate = false;
+
+  PointBoard(bool isCover, bool IsBarricate)
+      : IsCover(isCover), IsBarricate(IsBarricate) {}
+};
+
 class Board {
 private:
   std::vector<Zone> zones;
   std::vector<Giocatore> player;
   RisorseGlobali risorseGlobali;
+  std::vector<PointBoard> pointBoard;
   Mazzo mazzoPesca;
   int nCarte = 0; // numero di carte a giocatore
   int nGiornata = 0; // numero di giornata
+  bool isHard = false;
 
 public:
   // Costruttore: carica la configurazione di default
@@ -52,7 +62,7 @@ public:
 
   bool stillAlive();
 
-  // Stampa su console tutte le zone con i loro livelli
+  void drawPointBoard() const;
   void display() const;
 };
 
