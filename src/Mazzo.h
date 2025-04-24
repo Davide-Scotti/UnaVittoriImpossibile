@@ -9,17 +9,20 @@
 class Mazzo {
 private:
     std::vector<std::string> carte;
-    int fascisti;
-
+    
 public:
+    int fascisti = 3;
     Mazzo(); // Costruttore per inizializzare il mazzo
     void Mazzo_Default();
+    void ResetAndAdd();
     void mostraCarte();
     void aggiungiFascisti();
     int getFascisti() const;
     std::string pescaCarta(); // Pesca una carta dal mazzo
     void aggiungiCarta(std::string card);
     void svuotaMazzo() { carte.clear(); } // Svuota il mazzo
+    bool hasCarte(const std::string& carta, int n); // Controlla se il mazzo ha una carta specifica
+    void giocaCarte(std::string carta, int num);
 
     // Aggiungiamo il metodo shuffle
     void shuffle();

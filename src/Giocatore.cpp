@@ -15,6 +15,13 @@ void Giocatore::pescaCarta(Mazzo& mazzo) {
    carte.aggiungiCarta(carta); 
 }
 
+bool Giocatore::giocaCarta(std::string carta, int num){
+    if(!carte.hasCarte(carta, num)); 
+        return false;
+
+    carte.giocaCarte(carta, num);
+}
+
 void Giocatore::svuotaMano() {
     carte.svuotaMazzo(); 
 }
@@ -24,5 +31,10 @@ void Giocatore::mostraStato() {
     std::cout << "Zona: " << zona << std::endl;
     std::cout << "Carte in mano: ";
 
+    carte.mostraCarte();  
+}
+
+void Giocatore::mostraAzioni() {
+    std::cout << "Carte disponibili: ";
     carte.mostraCarte();  
 }

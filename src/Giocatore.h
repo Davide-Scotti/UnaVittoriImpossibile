@@ -14,19 +14,20 @@ private:
     std::vector<std::string> carteGiocate;  // Carte giocate durante il turno
 
 public:
+    bool spostato = false;
     // Costruttore
     Giocatore(const std::string& nome, int zona) : nome(nome), zona(zona) { }
 
     // Metodi per gestire il mazzo del giocatore
     void pescaCarta(Mazzo& mazzo);
-    void giocaCarta(const std::string& carta);
-    void mostraCarteGiocate();
+    bool giocaCarta(std::string carta, int num);
     void svuotaMano(); // Svuota la mano del giocatore
+    void mostraAzioni();
 
     // Getter e Settera
-    std::string getNome() const;
-    int getZona() const;
-    void setZona(int nuovaZona);
+    std::string getNome() const { return nome; };
+    int getZona() const { return zona; };
+    void setZona(int nuovaZona) { zona = nuovaZona; };
 
     // Mostra stato del giocatore
     void mostraStato();

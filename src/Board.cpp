@@ -213,12 +213,17 @@ void Board::initalizeMani(){
   for(auto &p : player)
   {
     p.svuotaMano();
-
     for(int i = 0; i < nCarte; i++)
     {
       p.pescaCarta(mazzoPesca);
     }
   }
+
+  for(int i = 0; i < mazzoPesca.fascisti; i++){
+    mazzoPesca.aggiungiFascisti();
+  }
+
+  mazzoPesca.shuffle();
 }
 
 bool Board::stillAlive(){

@@ -25,6 +25,28 @@ void Mazzo::Mazzo_Default() {
     shuffle();
 }
 
+void Mazzo::ResetAndAdd(){
+    for(int i = 0; i < 6; i++) {
+        for(int j = 0; j < 5; j++) {
+            if(j == 0)
+                carte.push_back("Munizione");
+            else if(j == 1)
+                carte.push_back("Civile");
+            else if(j == 2)
+                carte.push_back("Pozione");
+            else if(j == 3)
+                carte.push_back("Barricata");
+            else if(j == 4)
+                carte.push_back("Sparo");
+        }
+    }
+
+    fascisti++;
+    for(int i = 0; i < fascisti; i++){
+        carte.push_back("Fascista");
+    }
+}
+
 void Mazzo::mostraCarte() {
     for (const auto& carta : carte)
         std::cout << carta << " ";
@@ -56,6 +78,18 @@ std::string Mazzo::pescaCarta() {
 
 void Mazzo::aggiungiCarta(std::string card) {
     carte.push_back(card);
+}
+
+bool Mazzo::hasCarte(const std::string& carta, int n) {
+    int i = 0;
+
+    for(auto& c : carte) {
+        if(c == carta) {
+           i++;
+        }
+    }
+
+    return i >= n;
 }
 
 void Mazzo::shuffle() {

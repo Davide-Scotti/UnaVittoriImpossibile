@@ -3,6 +3,7 @@
 #include <thread>
 #include <iostream>
 
+// comando console: [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 int main() {
 
@@ -12,10 +13,9 @@ int main() {
   srand(static_cast<unsigned int>(time(0)));
 
   Board board;
-  board.initalizeGame();   
+  Mazzo mazzo;
 
-  // Aggiungo oggetti e fascisti
-  board.initalizeGame();
+  board.initalizeGame();   
 
   // MAIN LOOP 
   while (board.stillAlive() && board.getGiorno() < MAX_GIORNATE) {
@@ -26,43 +26,65 @@ int main() {
       std::cout << "\nTurno di " << pl.getNome() << std::endl;
       board.display();
       pl.mostraStato();
+
       std::cout << "Vuoi spostarti di zona? (s/n) ";
       char scelta; std::cin >> scelta;
+
       if (scelta == 's' || scelta == 'S') {
-          int nuovaZona;
-          std::cout << "Inserisci il numero della zona: ";
-          std::cin >> nuovaZona;
-          // TODO: verifica coerenza mappa, oggetto trasportabile, ecc.
-          pl.setZona(nuovaZona);
+        pl.spostato = true;
+          std::cout << "Vuoi spostarti con un oggetto?: ";
+          std::cin >> scelta;
+          if (scelta == 's' || scelta == 'S'){
+              // TODO: Logica di spostamento degli oggetti nelle zone
+          }else{
+            int nuovaZona;
+            std::cout << "Inserisci il numero della zona: ";
+            std::cin >> nuovaZona;
+            pl.setZona(nuovaZona);
+          } 
       }
 
       // 2) Gioca carte per tirare i dadi
-      std::cout << "Quante carte uguali vuoi giocare? ";
-      int nCarteUguali; std::cin >> nCarteUguali;
-      // TODO: chiedi al giocatore quali carte, controlla che ne abbia...
-      for (int k = 0; k < nCarteUguali; ++k) {
-          // TODO: pl.giocaCarta(nomeCarta);
-      }
+      int nCarteUguali = 0;
+      std::string nomeCarta = "";
+
+      std::cout << "Quale azione vuoi compiere? ";
+      pl.mostraAzioni();
+      std::cin >> nomeCarta;
+
+      std::cout << "Quante carte vuoi giocare? ";
+      std::cin >> nCarteUguali;+
+      pl.giocaCarta(nomeCarta, nCarteUguali);
 
       // 3) Lancia i dadi
       std::vector<int> risultati = board.lanciaDadi(nCarteUguali);
       std::cout << "Risultati dadi: ";
-      for (int d : risultati) std::cout << d << ' ';
-        std::cout << std::endl;
-
+      // TODO: Inserisci pedine sulla board in base al numero di dadi lanciati
+ 
       // 4) gestisci creazione degli oggetti (munizioni, pozioni, civili, barricate)
 
       // 5) Pesca fino ad avere di nuovo N carte in mano
       
       // 6) Dopo l’azione può spostarsi di nuovo (opzionale)
-      std::cout << "Vuoi spostarti di nuovo? (s/n) ";
-      std::cin >> scelta;
-      if (scelta == 's' || scelta == 'S') {
-          int nuovaZona;
-          std::cout << "Inserisci il numero della zona (stessa mappa): ";
-          std::cin >> nuovaZona;
-          pl.setZona(nuovaZona);
+      if(!pl.spostato){
+        std::cout << "Vuoi spostarti di zona? (s/n) ";
+        char scelta; std::cin >> scelta;
+
+        if (scelta == 's' || scelta == 'S') {
+          pl.spostato = true;
+            std::cout << "Vuoi spostarti con un oggetto?: ";
+            std::cin >> scelta;
+            if (scelta == 's' || scelta == 'S'){
+                // TODO: Logica di spostamento degli oggetti nelle zone
+            }else{
+              int nuovaZona;
+              std::cout << "Inserisci il numero della zona: ";
+              std::cin >> nuovaZona;
+              pl.setZona(nuovaZona);
+            } 
+        }
       }
+     
 
       // 7) controllo se non si ha perso
       if (!board.stillAlive()) break;
