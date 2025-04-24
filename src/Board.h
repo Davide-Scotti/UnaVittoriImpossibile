@@ -57,7 +57,7 @@ public:
   Giocatore& getPlayer(int idx) { return player[idx]; }
   Oggetti getOggettiInZona(Zone& zona) { return zona.oggetti; }
   int getPunteggioBarricata();
-  void MostraZonaGiocatore(int idZona) { zones[idZona].mostraZona(); }
+  void MostraZonaGiocatore(Zone& zona) { zona.mostraZona(); }
   int getNumZona(int nZona) const { return zones[nZona].number; }
   
   // Inizializzazione board

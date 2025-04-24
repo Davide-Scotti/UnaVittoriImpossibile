@@ -92,6 +92,19 @@ bool Mazzo::hasCarte(const std::string& carta, int n) {
     return i >= n;
 }
 
+void Mazzo::giocaCarte(std::string carta, int num){
+
+    for (auto it = carte.begin(); it != carte.end() && num > 0;) {
+        if (*it == carta) {
+            it = carte.erase(it);  
+            --num;               
+        } else {
+            ++it;                 
+        }
+    }
+}
+
+
 void Mazzo::shuffle() {
     std::random_device rd;
     std::mt19937 g(rd());

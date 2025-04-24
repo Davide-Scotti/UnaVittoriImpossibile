@@ -45,11 +45,11 @@ int main() {
             int nuovaZona;
             std::cout << "Inserisci il numero della zona: ";
             std::cin >> nuovaZona;
-            nuovaZona--;
+            nuovaZona;
             pl.setZona(board.getZone(nuovaZona));
           } 
 
-          board.MostraZonaGiocatore(pl.getZona());
+          board.MostraZonaGiocatore(board.getZone(pl.getZona()));
           system("pause");
       }
 
@@ -59,7 +59,6 @@ int main() {
 
       do{
         std::cout << "Quale azione vuoi compiere? ";
-        pl.mostraAzioni();
         std::cin >> nomeCarta;
 
         std::cout << "Quante carte vuoi giocare? ";
@@ -110,7 +109,7 @@ int main() {
           break;
       }
 
-      board.MostraZonaGiocatore(pl.getZona());
+      board.MostraZonaGiocatore(board.getZone(pl.getZona()));
 
       // 5) Dopo l’azione può spostarsi di nuovo (opzionale)
       if(!pl.spostato){
