@@ -50,7 +50,7 @@ void Giocatore::spostaConOggetto(Oggetti& oggetti, Zone& zone) {
         std::cout << "Oggetto non disponibile o non valido, ti muoverai senza per punizione." << std::endl;
     }
 
-    if(zona.name == zone.name){
+    if(zona->name == zone.name && oggetto == ""){
         setZona(zone);
     }else if(oggetto == ""){
         setZona(zone);
@@ -59,13 +59,19 @@ void Giocatore::spostaConOggetto(Oggetti& oggetti, Zone& zone) {
     std::cout << nome << " si è spostato in " << zone.name << " con " << oggetto << std::endl;
 
     //TODO assegno l'oggetto alla zona in cui sono
+    if(oggetto == "Munizioni")
+        zona->oggetti.Add_Munizioni(); 
+    else if(oggetto == "Pozioni")
+        zona->oggetti.Add_Pozioni(); 
+    else if(oggetto == "Cittadini")
+        zona->oggetti.Add_Civili(); 
 
     oggetto = ""; 
 }
 
 void Giocatore::mostraStato() {
     std::cout << "Nome: " << nome << std::endl;
-    std::cout << "Zona: " << zona.number << std::endl;
+    std::cout << "Zona: " << zona->number << std::endl;
     std::cout << "Carte in mano: ";
 
     carte.mostraCarte();  

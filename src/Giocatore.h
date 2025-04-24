@@ -11,7 +11,7 @@
 class Giocatore {
 private:
     std::string nome;                // Nome del giocatore
-    Zone zona;                        // Zona in cui si trova il giocatore (per esempio, mappa o posizione)
+    Zone* zona;                        // Zona in cui si trova il giocatore (per esempio, mappa o posizione)
     Mazzo carte;         // carte in mano
     std::vector<std::string> carteGiocate;  // Carte giocate durante il turno
     std::string oggetto;
@@ -19,7 +19,7 @@ private:
 public:
     bool spostato = false;
     // Costruttore
-    Giocatore(const std::string& nome, Zone& zona) : nome(nome), zona(zona) { }
+    Giocatore(const std::string& nome, Zone& zona) : nome(nome), zona(&zona) { }
 
     // Metodi per gestire il mazzo del giocatore
     void pescaCarta(Mazzo& mazzo);
@@ -30,8 +30,8 @@ public:
 
     // Getter e Settera
     std::string getNome() const { return nome; };
-    int getZona() const { return zona.number; };
-    void setZona(Zone nuovaZona) { zona = nuovaZona; };
+    int getZona() const { return zona->number; };
+    void setZona(Zone nuovaZona) { zona = &nuovaZona; };
 
     // Mostra stato del giocatore
     void mostraStato();
