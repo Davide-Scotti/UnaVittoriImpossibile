@@ -39,24 +39,36 @@ struct Oggetti {
 
   void Add_Civili() { nCivili++; }
 
-  void Remove_Fascisti() {
-    if (nFascisti > 0)
+  bool Remove_Fascisti() {
+    if (nFascisti > 0){
       nFascisti--;
+      return true;
+    }
+    return false;
   }
 
-  void Remove_Munizioni() {
-    if (nMunizioni > 0)
+  bool Remove_Munizioni() {
+    if (nMunizioni > 0){
       nMunizioni--;
+      return true;
+    }
+    return false;
   }
 
-  void Remove_Pozioni() {
-    if (nPozioni > 0)
+  bool Remove_Pozioni() {
+    if (nPozioni > 0) {
       nPozioni--;
+      return true;
+    }
+    return false; 
   }
 
-  void Remove_Civili() {
-    if (nCivili > 0)
+  bool Remove_Civili() {
+    if (nCivili > 0) {
       nCivili--;
+      return true;
+    }
+    return false;
   }
 
   void get_Oggetti(){

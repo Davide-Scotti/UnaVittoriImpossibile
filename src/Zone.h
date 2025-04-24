@@ -17,6 +17,15 @@ struct Zone {
   Zone(const Zone& other) noexcept
       : name(std::move(other.name)), number(other.number),
         oggetti(std::move(other.oggetti)) {}
+
+  void mostraZona() {
+    std::cout << "Zona: " << name << " (Numero: " << number << ")" << std::endl;
+
+    std::cout << "Barricate: " << oggetti.nBarricate << "/3" << std::endl;
+
+    oggetti.get_Oggetti();
+   
+  }
 };
 
 #endif // ZONE_H

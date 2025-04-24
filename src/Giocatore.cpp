@@ -18,8 +18,9 @@ void Giocatore::pescaCarta(Mazzo& mazzo) {
 bool Giocatore::giocaCarta(std::string carta, int num){
     if(!carte.hasCarte(carta, num)); 
         return false;
-
+        
     carte.giocaCarte(carta, num);
+    return true;
 }
 
 void Giocatore::svuotaMano() {

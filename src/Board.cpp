@@ -25,15 +25,28 @@ Zone &Board::getZone(const int &nZone) {
   return *it;
 }
 
-bool Board::aggiungiFascistaAZona(int numeroZona) {
+int Board::getPunteggioBarricata() {
+  int punteggio = 0;
+
+  for (const auto &score : pointBoard) {
+      punteggio++;
+
+      if(score.IsBarricate == true)
+        break;
+  }
+
+  return punteggio;
+}
+
+bool Board::aggiungiFascistaAZona(Zone& zona) {
   if (risorseGlobali.usaFascista()) {
-    getZone(numeroZona).oggetti.Add_Fascisti();
+    zona.oggetti.Add_Fascisti();
     return true;
   }
   return false;
 }
 
-bool Board::aggiungiBarricataAZona(int numeroZona) {
+bool Board::aggiungiBarricataAZona(Zone& zona) {
 
   bool found = false;
 
@@ -45,54 +58,57 @@ bool Board::aggiungiBarricataAZona(int numeroZona) {
     }
   }
 
+  if(found)
+    zona.oggetti.Add_Barricata();
+
   return found;
 }
 
-bool Board::aggiungiMunizioneAZona(int numeroZona) {
+bool Board::aggiungiMunizioneAZona(Zone& zona) {
   if (risorseGlobali.usaMunizione()) {
-    getZone(numeroZona).oggetti.Add_Munizioni();
+    zona.oggetti.Add_Munizioni();
     return true;
   }
   return false;
 }
 
-bool Board::aggiungiPozioneAZona(int numeroZona) {
+bool Board::aggiungiPozioneAZona(Zone& zona) {
   if (risorseGlobali.usaPozione()) {
-    getZone(numeroZona).oggetti.Add_Pozioni();
+    zona.oggetti.Add_Pozioni();
     return true;
   }
   return false;
 }
 
-bool Board::aggiungiCivileAZona(int numeroZona) {
+bool Board::aggiungiCivileAZona(Zone& zona) {
   if (risorseGlobali.usaCivile()) {
-    getZone(numeroZona).oggetti.Add_Civili();
+    zona.oggetti.Add_Civili();
     return true;
   }
   return false;
 }
 
-bool Board::rimuoviFascistaDaZona(int numeroZona) {
-  getZone(numeroZona).oggetti.Remove_Fascisti();
-  risorseGlobali.fascistiDisponibili++;
+bool Board::rimuoviFascistaDaZona(Zone& zona) {
+  if(zona.oggetti.Remove_Fascisti())
+    risorseGlobali.fascistiDisponibili++;
   return true;
 }
 
-bool Board::rimuoviMunizioneDaZona(int numeroZona) {
-  getZone(numeroZona).oggetti.Remove_Munizioni();
-  risorseGlobali.munizioniDisponibili++;
+bool Board::rimuoviMunizioneDaZona(Zone& zona) {
+  if(zona.oggetti.Remove_Munizioni())
+    risorseGlobali.munizioniDisponibili++;
   return true;
 }
 
-bool Board::rimuoviPozioneDaZona(int numeroZona) {
-  getZone(numeroZona).oggetti.Remove_Pozioni();
-  risorseGlobali.pozioniDisponibili++;
+bool Board::rimuoviPozioneDaZona(Zone& zona) {
+  if(zona.oggetti.Remove_Pozioni())
+    risorseGlobali.pozioniDisponibili++;
   return true;
 }
 
-bool Board::rimuoviCivileDaZona(int numeroZona) {
-  getZone(numeroZona).oggetti.Remove_Civili();
-  risorseGlobali.civiliDisponibili++;
+bool Board::rimuoviCivileDaZona(Zone& zona) {
+  if(zona.oggetti.Remove_Civili())
+    risorseGlobali.civiliDisponibili++;
   return true;
 }
 
@@ -130,8 +146,6 @@ void Board::initalizeGame(){
   {
       player[i].mostraStato();
   }
-
-  display();
 }
 
 void Board::initalizeZone() {
@@ -141,25 +155,25 @@ void Board::initalizeZone() {
    // Aggiungo i fascisti
    risultati = lanciaDadi(2);
    for (int i = 0; i < risultati.size(); i++) {
-     aggiungiFascistaAZona(risultati[i]);
+     aggiungiFascistaAZona(zones[risultati[i] - 1]);
    }
  
    // Aggiungo le munizioni
    risultati = lanciaDadi(2);
    for (int i = 0; i < risultati.size(); i++) {
-     aggiungiMunizioneAZona(risultati[i]);
+     aggiungiMunizioneAZona(zones[risultati[i] - 1]);
    }
  
    // Aggiungo le pozioni
    risultati = lanciaDadi(2);
    for (int i = 0; i < risultati.size(); i++) {
-    aggiungiPozioneAZona(risultati[i]);
+    aggiungiPozioneAZona(zones[risultati[i] - 1]);
    }
  
    // Aggiungo i civili
    risultati = lanciaDadi(2);
    for (int i = 0; i < risultati.size(); i++) {
-     aggiungiCivileAZona(risultati[i]);
+     aggiungiCivileAZona(zones[risultati[i] - 1]);
    }
 }
 

@@ -36,17 +36,17 @@ public:
   Zone &getZone(const int &nZone);
 
   // Aggiunte
-  bool aggiungiFascistaAZona(int numeroZona);
-  bool aggiungiBarricataAZona(int numeroZona);
-  bool aggiungiMunizioneAZona(int numeroZona);
-  bool aggiungiPozioneAZona(int numeroZona);
-  bool aggiungiCivileAZona(int numeroZona);
+  bool aggiungiFascistaAZona(Zone& zona);
+  bool aggiungiBarricataAZona(Zone& zona);
+  bool aggiungiMunizioneAZona(Zone& zona);
+  bool aggiungiPozioneAZona(Zone& zona);
+  bool aggiungiCivileAZona(Zone& zona);
 
   // Rimozioni
-  bool rimuoviFascistaDaZona(int numeroZona);
-  bool rimuoviMunizioneDaZona(int numeroZona);
-  bool rimuoviPozioneDaZona(int numeroZona);
-  bool rimuoviCivileDaZona(int numeroZona);
+  bool rimuoviFascistaDaZona(Zone& zona);
+  bool rimuoviMunizioneDaZona(Zone& zona);
+  bool rimuoviPozioneDaZona(Zone& zona);
+  bool rimuoviCivileDaZona(Zone& zona);
 
   // Lancio di n dadi
   std::vector<int> lanciaDadi(int numDadi);
@@ -55,14 +55,18 @@ public:
   int getGiorno() { return nGiornata; }
   int getNumPlayers() const { return static_cast<int>(player.size()); }
   Giocatore& getPlayer(int idx) { return player[idx]; }
-  Oggetti getOggettiInZona(int idx) { return zones[idx].oggetti; }
-
+  Oggetti getOggettiInZona(Zone& zona) { return zona.oggetti; }
+  int getPunteggioBarricata();
+  void MostraZonaGiocatore(int idZona) { zones[idZona].mostraZona(); }
+  int getNumZona(int nZona) const { return zones[nZona].number; }
+  
   // Inizializzazione board
   void initalizeGame();
   void initalizeZone();
   void initalizePointBoard();
   void initalizeGiocatori();
   void initalizeMani();
+
 
   bool stillAlive();
 
