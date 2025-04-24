@@ -55,6 +55,7 @@ public:
   int getGiorno() { return nGiornata; }
   int getNumPlayers() const { return static_cast<int>(player.size()); }
   Giocatore& getPlayer(int idx) { return player[idx]; }
+  Oggetti getOggettiInZona(int idx) { return zones[idx].oggetti; }
 
   // Inizializzazione board
   void initalizeGame();

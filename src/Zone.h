@@ -13,6 +13,10 @@ struct Zone {
   // Costruttore di comodo
   Zone(const std::string &name, int number)
       : name(name), number(number), oggetti() {}
+
+  Zone(const Zone& other) noexcept
+      : name(std::move(other.name)), number(other.number),
+        oggetti(std::move(other.oggetti)) {}
 };
 
 #endif // ZONE_H

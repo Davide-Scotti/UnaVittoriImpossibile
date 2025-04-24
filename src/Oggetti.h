@@ -4,6 +4,7 @@
 #define OGGETTI_H
 
 #include <string>
+#include <iostream>
 
 struct Oggetti {
   int nBarricate;    // numero corrente di barricata
@@ -56,6 +57,13 @@ struct Oggetti {
   void Remove_Civili() {
     if (nCivili > 0)
       nCivili--;
+  }
+
+  void get_Oggetti(){
+    std::cout << "Fascisti: " << nFascisti
+              << ", Munizioni: " << nMunizioni
+              << ", Pozioni: " << nPozioni
+              << ", Civili: " << nCivili << std::endl;
   }
 };
 

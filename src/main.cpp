@@ -35,12 +35,16 @@ int main() {
           std::cout << "Vuoi spostarti con un oggetto?: ";
           std::cin >> scelta;
           if (scelta == 's' || scelta == 'S'){
-              // TODO: Logica di spostamento degli oggetti nelle zone
+            Oggetti oggetti = board.getOggettiInZona(pl.getZona());
+            int nuovaZona;
+            std::cout << "Inserisci il numero della zona: ";
+            std::cin >> nuovaZona;
+            pl.spostaConOggetto(oggetti, board.getZone(nuovaZona));
           }else{
             int nuovaZona;
             std::cout << "Inserisci il numero della zona: ";
             std::cin >> nuovaZona;
-            pl.setZona(nuovaZona);
+            pl.setZona(board.getZone(nuovaZona));
           } 
       }
 
@@ -75,12 +79,16 @@ int main() {
             std::cout << "Vuoi spostarti con un oggetto?: ";
             std::cin >> scelta;
             if (scelta == 's' || scelta == 'S'){
-                // TODO: Logica di spostamento degli oggetti nelle zone
+              Oggetti oggetti = board.getOggettiInZona(pl.getZona());
+              int nuovaZona;
+              std::cout << "Inserisci il numero della zona: ";
+              std::cin >> nuovaZona;
+              pl.spostaConOggetto(oggetti, board.getZone(nuovaZona));
             }else{
               int nuovaZona;
               std::cout << "Inserisci il numero della zona: ";
               std::cin >> nuovaZona;
-              pl.setZona(nuovaZona);
+              pl.setZona(board.getZone(nuovaZona));
             } 
         }
       }

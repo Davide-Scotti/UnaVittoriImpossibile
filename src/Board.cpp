@@ -191,7 +191,8 @@ void Board::initalizeGiocatori(){
      std::string name;
      std::cout << "inserisci il nome del giocatore: ";
      std::cin >> name;
-     player.push_back(Giocatore(name, lanciaDadi(1).back()));
+     int numZona = lanciaDadi(1).back();
+     player.push_back(Giocatore(name, getZone(numZona)));
    }
 }
 
