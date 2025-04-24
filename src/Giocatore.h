@@ -22,11 +22,12 @@ public:
     Giocatore(const std::string& nome, Zone& zona) : nome(nome), zona(&zona) { }
 
     // Metodi per gestire il mazzo del giocatore
-    void pescaCarta(Mazzo& mazzo);
+    int pescaCarta(Mazzo& mazzo);
     bool giocaCarta(std::string carta, int num);
     void svuotaMano(); // Svuota la mano del giocatore
     void mostraAzioni();
     void spostaConOggetto(Oggetti& oggetti, Zone& zone);
+    int getNumeroCarte() { return carte.getNumeroCarte(); }
 
     // Getter e Settera
     std::string getNome() const { return nome; };

@@ -23,6 +23,7 @@ public:
     void svuotaMazzo() { carte.clear(); } // Svuota il mazzo
     bool hasCarte(const std::string& carta, int n); // Controlla se il mazzo ha una carta specifica
     void giocaCarte(std::string carta, int num);
+    int getNumeroCarte() { return carte.size(); } // ritorna numero di carte
 
     // Aggiungiamo il metodo shuffle
     void shuffle();

@@ -138,7 +138,19 @@ int main() {
       }
 
       // 6) Pesca fino ad avere di nuovo N carte in mano
-      
+      for(int i = pl.getNumeroCarte(); i <= 5; i++){
+
+        int res = pl.pescaCarta(mazzo); 
+
+        if(res == 1){
+          std::cout << "Carta pescata: " << res << std::endl;
+        }else if(res == 0){
+          board.aggiungiFascistaAZona(board.getZone(board.lanciaDadi(1).back() - 1));
+        }else{
+          //reset del mazzo ed avanzo di giornata
+          mazzo.ResetAndAdd();
+        }
+      }
      
       // 7) controllo se non si ha perso
       if (!board.stillAlive()) break;

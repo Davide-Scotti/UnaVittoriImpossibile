@@ -2,17 +2,24 @@
 #include "Giocatore.h"
 #include <iostream>
 
-void Giocatore::pescaCarta(Mazzo& mazzo) {
+int Giocatore::pescaCarta(Mazzo& mazzo) {
    std::string carta = mazzo.pescaCarta(); 
 
-   if (carta != "") {
+   if (carta != "" && carta != "Fascisti") {
     // La carta viene aggiunta alla mano internamente alla classe Mazzo
         std::cout << nome << " ha pescato: " << carta << std::endl;
-    } else {
+        carte.aggiungiCarta(carta); 
+        return 1;
+    } else if(carta == "Fascisti"){
+        std::cout << nome << " ha pescato un fascista, verrà assegnato al campo: " << std::endl;
+        return -1;
+    }
+    else{
         std::cout << nome << " non ha più carte da pescare." << std::endl;
+        return 0;
     }
 
-   carte.aggiungiCarta(carta); 
+   
 }
 
 bool Giocatore::giocaCarta(std::string carta, int num){

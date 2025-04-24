@@ -69,6 +69,7 @@ std::string Mazzo::pescaCarta() {
         fascisti++;
         Mazzo_Default();
         aggiungiFascisti();
+        return "";
     }
 
     std::string carta = carte.back();
